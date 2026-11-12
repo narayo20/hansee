@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>한글 뷰어 · HWP/HWPX</title>
+  <meta name="description" content="HWP · HWPX 문서를 원본 레이아웃 그대로 보고, 인쇄하거나 PDF로 저장하는 로컬 뷰어" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="appbar">
+      <div class="brand" aria-label="한글 뷰어">
+        <span class="brand-mark" aria-hidden="true">한</span>
+        <span class="brand-name">한글 뷰어</span>
+      </div>
+
+      <button id="openBtn" class="btn primary" type="button" title="파일 열기 (Ctrl+O)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5A2.5 2.5 0 0 1 6 5h3.6a2 2 0 0 1 1.6.8l.9 1.2H18a2.5 2.5 0 0 1 2.5 2.5v7A2.5 2.5 0 0 1 18 19H6a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+        파일 열기
+      </button>
+
+      <div class="doc-head">
+        <div class="doc-name" id="docName">문서를 열어주세요</div>
+        <div class="doc-meta" id="docMeta">HWP · HWPX 지원</div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="app-actions">
+        <button id="printBtn" class="btn" type="button" title="인쇄 (Ctrl+P)" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9V4.5h11V9"/><path d="M6.5 17.5H5A2.5 2.5 0 0 1 2.5 15v-3A2.5 2.5 0 0 1 5 9.5h14A2.5 2.5 0 0 1 21.5 12v3a2.5 2.5 0 0 1-2.5 2.5h-1.5"/><rect x="6.5" y="14" width="11" height="6.5" rx="1"/><path d="M17.5 12.2h.01"/></svg>
+          인쇄
+        </button>
+        <button id="pdfBtn" class="btn" type="button" title="PDF로 저장 (Ctrl+S)" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11"/><path d="m8 10.5 4 4 4-4"/><path d="M4.5 19.5h15"/></svg>
+          PDF 저장
+        </button>
+        <span class="appbar-divider" aria-hidden="true"></span>
+        <button id="helpBtn" class="icon-btn" type="button" title="도움말" aria-label="도움말">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.9.6c0 1.7-2.5 2-2.5 3.4"/><path d="M12 16.9h.01"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="tool-group" role="group" aria-label="페이지 이동">
+        <button id="prevPage" class="tool-btn" type="button" title="이전 쪽 (Alt+←)" disabled aria-label="이전 쪽">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6.5-5 5.5 5 5.5"/></svg>
+        </button>
+        <div class="page-field">
+          <input id="pageInput" type="text" inputmode="numeric" value="1" aria-label="쪽 번호" disabled />
+          <span class="page-total">/ <b id="pageTotal">0</b></span>
+        </div>
+        <button id="nextPage" class="tool-btn" type="button" title="다음 쪽 (Alt+→)" disabled aria-label="다음 쪽">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6.5 5 5.5-5 5.5"/></svg>
+        </button>
+      </div>
+
+      <span class="toolbar-divider" aria-hidden="true"></span>
+
+      <div class="tool-group" role="group" aria-label="확대/축소">
+        <button id="zoomOut" class="tool-btn" type="button" title="축소 (Ctrl+-)" disabled aria-label="축소">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12h13"/></svg>
+        </button>
+        <button id="zoomLabel" class="zoom-label" type="button" title="확대/축소" disabled>100%</button>
+        <button id="zoomIn" class="tool-btn" type="button" title="확대 (Ctrl+=)" disabled aria-label="확대">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </button>
+      </div>
+
+      <button id="fitWidth" class="tool-btn wide" type="button" title="화면 폭에 맞추기" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6v12M20.5 6v12M7 12h10M7 12l2.2-2.2M7 12l2.2 2.2M17 12l-2.2-2.2M17 12l-2.2 2.2"/></svg>
+        폭 맞춤
+      </button>
+      <button id="fitPage" class="tool-btn wide" type="button" title="한 쪽 전체 보기" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="m9 12 2 2 4-4"/></svg>
+        쪽 맞춤
+      </button>
+
+      <div class="spacer"></div>
+
+      <button id="thumbToggle" class="tool-btn wide" type="button" title="쪽 목록" aria-pressed="true" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="7" height="7" rx="1"/><rect x="13.5" y="4" width="7" height="7" rx="1"/><rect x="3.5" y="14" width="7" height="6" rx="1"/><rect x="13.5" y="14" width="7" height="6" rx="1"/></svg>
+        쪽 목록
+      </button>
+      <button id="fullscreenBtn" class="tool-btn" type="button" title="전체 화면 (F11)" aria-label="전체 화면" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>
+      </button>
+    </div>
+
+    <main class="workspace">
+      <aside id="thumbs" class="thumbs" aria-label="쪽 목록">
+        <div class="thumbs-head">쪽 목록</div>
+        <div id="thumbList" class="thumb-list"></div>
+      </aside>
+
+      <section id="stage" class="stage" tabindex="-1" aria-label="문서 보기">
+        <div id="emptyState" class="empty-state">
+          <div class="empty-card">
+            <div class="empty-illustration" aria-hidden="true">
+              <svg viewBox="0 0 120 120">
+                <rect x="24" y="14" width="64" height="84" rx="7" fill="#ffffff" stroke="#d7dce6" stroke-width="2"/>
+                <rect x="32" y="22" width="48" height="12" rx="3" fill="#eef3ff"/>
+                <text x="56" y="32" font-size="9" font-weight="700" fill="#2f6feb" text-anchor="middle" font-family="Malgun Gothic, sans-serif">HWP</text>
+                <rect x="32" y="44" width="48" height="4" rx="2" fill="#e6e9f0"/>
+                <rect x="32" y="54" width="40" height="4" rx="2" fill="#e6e9f0"/>
+                <rect x="32" y="64" width="45" height="4" rx="2" fill="#e6e9f0"/>
+                <rect x="32" y="74" width="30" height="4" rx="2" fill="#e6e9f0"/>
+                <circle cx="87" cy="84" r="19" fill="#2f6feb"/>
+                <text x="87" y="91" font-size="19" font-weight="800" fill="#ffffff" text-anchor="middle" font-family="Malgun Gothic, sans-serif">한</text>
+              </svg>
+            </div>
+            <h1>한글 문서를 열어보세요</h1>
+            <p class="empty-desc">HWP · HWPX 파일을 끌어다 놓거나<br />아래 버튼으로 파일을 선택하세요.</p>
+            <button id="emptyOpenBtn" class="btn primary large" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5A2.5 2.5 0 0 1 6 5h3.6a2 2 0 0 1 1.6.8l.9 1.2H18a2.5 2.5 0 0 1 2.5 2.5v7A2.5 2.5 0 0 1 18 19H6a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+              파일 열기
+            </button>
+            <div class="feature-chips">
+              <span class="chip">원본 레이아웃</span>
+              <span class="chip">인쇄 · PDF</span>
+              <span class="chip">100% 오프라인</span>
+            </div>
+            <p class="privacy-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 5 6.5v5c0 4.2 2.9 7.3 7 8.9 4.1-1.6 7-4.7 7-8.9v-5Z"/><path d="m9.2 12 2 2 3.6-3.8"/></svg>
+              파일은 서버로 전송되지 않고 이 브라우저 안에서만 열립니다.
+            </p>
+          </div>
+        </div>
+        <div id="pages" class="pages" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="statusbar">
+      <div class="status-left">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="statusText">로컬 모드 · 파일이 외부로 전송되지 않습니다</span>
+      </div>
+      <div class="status-right">
+        <span id="statusPage">-</span>
+        <span class="status-sep" aria-hidden="true"></span>
+        <span id="statusZoom">100%</span>
+        <span class="status-sep" aria-hidden="true"></span>
+        <span id="statusEngine">rhwp engine</span>
+      </div>
+    </footer>
+
+    <div id="dropOverlay" class="drop-overlay" hidden>
+      <div class="drop-box">
+        <div class="drop-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 16V5m0 0-4.5 4.5M12 5l4.5 4.5"/><path d="M4.5 15.5v2A2.5 2.5 0 0 0 7 20h10a2.5 2.5 0 0 0 2.5-2.5v-2"/></svg>
+        </div>
+        <strong>여기에 놓으면 바로 열립니다</strong>
+        <span>HWP · HWPX 파일</span>
+      </div>
+    </div>
+
+    <div id="busy" class="busy" hidden>
+      <div class="busy-card" role="status" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="busy-text" id="busyText">문서를 여는 중…</div>
+        <div class="progress" id="busyProgress" hidden><div class="progress-bar" id="busyBar"></div></div>
+        <button id="busyCancel" class="btn small" type="button" hidden>취소</button>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <div id="zoomMenu" class="zoom-menu" role="menu" hidden>
+      <button type="button" data-zoom="0.5" role="menuitem">50%</button>
+      <button type="button" data-zoom="0.75" role="menuitem">75%</button>
+      <button type="button" data-zoom="1" role="menuitem">100%</button>
+      <button type="button" data-zoom="1.25" role="menuitem">125%</button>
+      <button type="button" data-zoom="1.5" role="menuitem">150%</button>
+      <button type="button" data-zoom="2" role="menuitem">200%</button>
+      <div class="zoom-menu-sep" role="separator"></div>
+      <button type="button" data-fit="width" role="menuitem">폭 맞춤</button>
+      <button type="button" data-fit="page" role="menuitem">쪽 맞춤</button>
+    </div>
+  </div>
+
+  <div id="printRoot" aria-hidden="true"></div>
+
+  <dialog id="helpDialog" class="dialog">
+    <form method="dialog">
+      <div class="dialog-head">
+        <h2>한글 뷰어 사용법</h2>
+        <button class="icon-btn" value="close" aria-label="닫기" type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.5 6.5 11 11M17.5 6.5l-11 11"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <p><b>HWP · HWPX</b> 문서를 열어 원본 레이아웃 그대로 확인할 수 있습니다. 모든 처리는 이 브라우저 안에서 이루어지며 파일은 외부로 전송되지 않습니다.</p>
+        <h3>키보드 단축키</h3>
+        <dl class="shortcuts">
+          <div><dt>파일 열기</dt><dd><kbd>Ctrl</kbd> + <kbd>O</kbd></dd></div>
+          <div><dt>인쇄</dt><dd><kbd>Ctrl</kbd> + <kbd>P</kbd></dd></div>
+          <div><dt>PDF 저장</dt><dd><kbd>Ctrl</kbd> + <kbd>S</kbd></dd></div>
+          <div><dt>확대 / 축소</dt><dd><kbd>Ctrl</kbd> + <kbd>+</kbd> / <kbd>-</kbd></dd></div>
+          <div><dt>기본 배율</dt><dd><kbd>Ctrl</kbd> + <kbd>0</kbd></dd></div>
+          <div><dt>이전 / 다음 쪽</dt><dd><kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd></dd></div>
+          <div><dt>전체 화면</dt><dd><kbd>F11</kbd></dd></div>
+        </dl>
+        <h3>참고</h3>
+        <ul>
+          <li>일부 특수 글꼴은 PC에 설치된 대체 글꼴로 표시될 수 있습니다.</li>
+          <li>암호가 설정된 문서는 열 때 비밀번호를 입력받습니다.</li>
+          <li>PDF 저장은 화면에 보이는 그대로 이미지 형태로 만들어집니다.</li>
+        </ul>
+      </div>
+      <div class="dialog-foot">
+        <button class="btn primary" value="close" type="submit">확인</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="passwordDialog" class="dialog">
+    <form method="dialog" id="passwordForm">
+      <div class="dialog-head">
+        <h2>암호가 필요한 문서</h2>
+      </div>
+      <div class="dialog-body">
+        <p>이 문서는 암호로 보호되어 있습니다. 문서를 열려면 비밀번호를 입력하세요.</p>
+        <label class="field">
+          <span>비밀번호</span>
+          <input id="passwordInput" type="password" autocomplete="off" />
+        </label>
+        <p class="field-error" id="passwordError" hidden>비밀번호가 올바르지 않습니다.</p>
+      </div>
+      <div class="dialog-foot">
+        <button class="btn" value="cancel" type="submit" id="passwordCancel">취소</button>
+        <button class="btn primary" value="confirm" type="submit" id="passwordConfirm">열기</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input id="fileInput" type="file" accept=".hwp,.hwpx" hidden />
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

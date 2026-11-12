@@ -1,0 +1,21 @@
+{
+  "name": "hangul-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HWP/HWPX 한글 문서 전용 뷰어",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "python serve.py",
+    "start": "vite build && python serve.py"
+  },
+  "dependencies": {
+    "@rhwp/core": "^0.9.0",
+    "jspdf": "^4.2.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.8"
+  }
+}
