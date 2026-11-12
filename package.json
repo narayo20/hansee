@@ -1,6 +1,6 @@
 {
   "name": "hangul-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "HWP/HWPX 한글 문서 전용 뷰어",
   "type": "module",

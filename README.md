@@ -1,6 +1,6 @@
-# 한글 뷰어 v1.0.0 · HWP / HWPX
+# 한글 뷰어 v1.0.1 · HWP / HWPX
 
-![version](https://img.shields.io/badge/version-1.0.0-4b86f7)
+![version](https://img.shields.io/badge/version-1.0.1-4b86f7)
 ![platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-2f6fed)
 ![license](https://img.shields.io/badge/license-MIT-2ea44f)
 
@@ -18,7 +18,7 @@ Rust + WebAssembly 엔진([rhwp](https://github.com/edwardkim/rhwp))으로 PC �
 
 | 버전 | 파일 | 크기 | 링크 |
 | --- | --- | --- | --- |
-| **v1.0.0** | `HangulViewer-1.0.0.exe` | 26 MB | **[다운로드](https://github.com/narayo20/hangul-viewer/releases/download/v1.0.0/HangulViewer-1.0.0.exe)** |
+| **v1.0.1** | `HangulViewer-1.0.1.exe` | 26 MB | **[다운로드](https://github.com/narayo20/hangul-viewer/releases/download/v1.0.1/HangulViewer-1.0.1.exe)** |
 
 - 지원 환경: **Windows 10 / 11 (64-bit)**
 - **Microsoft Edge WebView2 Runtime** 필요 — Windows 11에는 기본 포함되어 있고, Windows 10도 대부분 설치되어 있습니다.
@@ -27,9 +27,11 @@ Rust + WebAssembly 엔진([rhwp](https://github.com/edwardkim/rhwp))으로 PC �
 - SmartScreen 경고가 표시되면 **추가 정보 → 실행**을 선택하세요. (서명되지 않은 오픈소스 실행 파일입니다.)
 - 모든 버전과 변경 사항: [Releases](https://github.com/narayo20/hangul-viewer/releases)
 
-> SHA-256 체크섬은 [릴리스 노트](https://github.com/narayo20/hangul-viewer/releases/tag/v1.0.0)에서 확인할 수 있습니다.
+> SHA-256 체크섬은 [릴리스 노트](https://github.com/narayo20/hangul-viewer/releases/tag/v1.0.1)에서 확인할 수 있습니다.
 
 ## 스크린샷
+
+배경에는 대한민국의 명산인 **설악산** 사진을 사용했습니다. (사진 출처는 [이미지 및 오픈소스 출처](docs/CREDITS.md) 참고)
 
 <p align="center">
   <img src="docs/screenshot.png" alt="HWP 문서 보기 화면" width="49%">
@@ -171,6 +173,12 @@ python -m PyInstaller --noconfirm --clean --onefile --windowed ^
 - PDF 저장은 페이지를 이미지로 변환하므로 파일 크기가 커질 수 있습니다.
 - 이 앱은 파일을 읽기 전용으로 표시하며, 문서를 수정하거나 저장하지 않습니다.
 
+## v1.0.1 변경 사항
+
+- 프로그램 배경을 대한민국의 명산(설악산) 사진으로 변경
+- 문서 가독성을 위해 배경 위에 옅은 안개색 오버레이 적용
+- 도움말에 버전 및 사진 출처 표기
+
 ## v1.0.0 변경 사항
 
 - HWP 5.0 / HWPX 뷰어, 쪽 목록, 확대/축소, 쪽 이동
@@ -188,6 +196,7 @@ python -m PyInstaller --noconfirm --clean --onefile --windowed ^
 ## 라이선스 및 상표
 
 - 이 프로젝트의 뷰어 UI 코드: [MIT](LICENSE)
+- 배경 사진: 설악산 · Olga Lipunova · [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) — [출처](docs/CREDITS.md)
 - [`@rhwp/core`](https://github.com/edwardkim/rhwp): MIT
 - [`jsPDF`](https://github.com/parallax/jsPDF): MIT
 - [`Vite`](https://vite.dev/): MIT
