@@ -4,7 +4,7 @@ chcp 65001 >nul
 cd /d "%~dp0"
 
 echo.
-echo  한글 뷰어 (HWP / HWPX)를 시작합니다.
+echo  한씨 (Hansee) — HWP / HWPX 뷰어를 시작합니다.
 echo.
 
 where python >nul 2>nul

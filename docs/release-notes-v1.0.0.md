@@ -3,7 +3,7 @@
 HWP 5.0과 HWPX 문서를 원본 레이아웃 그대로 열어 보는 Windows용 로컬 뷰어입니다.
 모든 렌더링은 PC 안에서 이루어지며, 문서는 외부로 전송되지 않습니다.
 
-![문서 보기 화면](https://raw.githubusercontent.com/narayo20/hangul-viewer/main/docs/screenshot.png)
+![문서 보기 화면](https://raw.githubusercontent.com/narayo20/hansee/main/docs/screenshot.png)
 
 ## 다운로드
 

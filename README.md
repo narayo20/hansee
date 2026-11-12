@@ -1,16 +1,16 @@
-# 한글 뷰어 v1.0.1 · HWP / HWPX
+# 한씨 (Hansee) v1.0.2 · HWP / HWPX
 
-![version](https://img.shields.io/badge/version-1.0.1-4b86f7)
+![version](https://img.shields.io/badge/version-1.0.2-4b86f7)
 ![platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-2f6fed)
 ![license](https://img.shields.io/badge/license-MIT-2ea44f)
 
-HWP 5.0(바이너리)과 HWPX(OWPML) 문서를 **원본 레이아웃 그대로** 열어 보는 로컬 뷰어입니다.
+한씨(Hansee)는 HWP 5.0(바이너리)과 HWPX(OWPML) 문서를 **원본 레이아웃 그대로** 열어 보는 로컬 뷰어입니다.
 Rust + WebAssembly 엔진([rhwp](https://github.com/edwardkim/rhwp))으로 PC 안에서 직접 렌더링하며,
 파일은 서버나 외부로 전송되지 않습니다.
 
 <p align="center">
-  <a href="https://github.com/narayo20/hangul-viewer/releases/latest">
-    <img src="https://img.shields.io/badge/Windows-한글뷰어.exe%20다운로드-4b86f7?style=for-the-badge&logo=windows" alt="Windows 다운로드">
+  <a href="https://github.com/narayo20/hansee/releases/latest">
+    <img src="https://img.shields.io/badge/Windows-Hansee.exe%20다운로드-4b86f7?style=for-the-badge&logo=windows" alt="Windows 다운로드">
   </a>
 </p>
 
@@ -18,16 +18,16 @@ Rust + WebAssembly 엔진([rhwp](https://github.com/edwardkim/rhwp))으로 PC �
 
 | 버전 | 파일 | 크기 | 링크 |
 | --- | --- | --- | --- |
-| **v1.0.1** | `HangulViewer-1.0.1.exe` | 26 MB | **[다운로드](https://github.com/narayo20/hangul-viewer/releases/download/v1.0.1/HangulViewer-1.0.1.exe)** |
+| **v1.0.2** | `Hansee-1.0.2.exe` | 26 MB | **[다운로드](https://github.com/narayo20/hansee/releases/download/v1.0.2/Hansee-1.0.2.exe)** |
 
 - 지원 환경: **Windows 10 / 11 (64-bit)**
 - **Microsoft Edge WebView2 Runtime** 필요 — Windows 11에는 기본 포함되어 있고, Windows 10도 대부분 설치되어 있습니다.
   없다면 [Microsoft Edge WebView2 다운로드](https://developer.microsoft.com/microsoft-edge/webview2/)에서 설치하세요.
 - 설치 없이 실행: 내려받은 `.exe` 파일을 더블클릭합니다.
 - SmartScreen 경고가 표시되면 **추가 정보 → 실행**을 선택하세요. (서명되지 않은 오픈소스 실행 파일입니다.)
-- 모든 버전과 변경 사항: [Releases](https://github.com/narayo20/hangul-viewer/releases)
+- 모든 버전과 변경 사항: [Releases](https://github.com/narayo20/hansee/releases)
 
-> SHA-256 체크섬은 [릴리스 노트](https://github.com/narayo20/hangul-viewer/releases/tag/v1.0.1)에서 확인할 수 있습니다.
+> SHA-256 체크섬은 [릴리스 노트](https://github.com/narayo20/hansee/releases/tag/v1.0.2)에서 확인할 수 있습니다.
 
 ## 스크린샷
 
@@ -56,11 +56,11 @@ Rust + WebAssembly 엔진([rhwp](https://github.com/edwardkim/rhwp))으로 PC �
 
 ### 1. Windows EXE (권장)
 
-[다운로드](#다운로드-windows)에서 `HangulViewer-1.0.0.exe`를 받아 더블클릭합니다.
+[다운로드](#다운로드-windows)에서 `Hansee-1.0.2.exe`를 받아 더블클릭합니다.
 
 - 별도 설치 과정이 없습니다.
 - 로컬 서버는 `127.0.0.1`의 임의 포트에서만 열리고, 창을 닫으면 함께 종료됩니다.
-- 실행 로그: `%TEMP%\hangul-viewer.log`
+- 실행 로그: `%TEMP%\hansee.log`
 
 ### 2. 브라우저 모드
 
@@ -108,17 +108,20 @@ npm run dev
 ## 폴더 구조
 
 ```
-hangul_viwe/
+hansee/
 ├─ index.html            # 화면 구조
 ├─ src/
 │  ├─ main.js            # 뷰어 상태, 렌더링, 탐색, 단축키
 │  ├─ export.js          # 인쇄 및 PDF 저장
 │  └─ styles.css         # UI 스타일 (인쇄 스타일 포함)
 ├─ public/
-│  └─ favicon.svg
+│  ├─ favicon.svg
+│  └─ mountains.jpg      # 배경 사진 (설악산)
 ├─ docs/
 │  ├─ screenshot.png     # README 화면 예시
-│  └─ screenshot-empty.png
+│  ├─ screenshot-empty.png
+│  ├─ CREDITS.md
+│  └─ release-notes-v1.0.2.md
 ├─ assets/
 │  └─ icon.ico           # EXE/창 아이콘
 ├─ launcher.py           # 데스크톱 실행기 (로컬 서버 + WebView2 창)
@@ -143,12 +146,12 @@ build_exe.bat
 ```bat
 npm run build
 python -m PyInstaller --noconfirm --clean --onefile --windowed ^
-  --name "HangulViewer" --icon "assets\icon.ico" ^
+  --name "Hansee" --icon "assets\icon.ico" ^
   --add-data "dist;dist" --distpath "." --workpath "build\pyinstaller" ^
   --specpath "build" "launcher.py"
 ```
 
-완료되면 프로젝트 폴더에 `한글뷰어.exe`(또는 `HangulViewer.exe`)가 생성됩니다.
+완료되면 프로젝트 폴더에 `한씨.exe`(또는 `Hansee.exe`)가 생성됩니다.
 `dist` 폴더가 EXE 안에 함께 들어가므로 실행 파일 하나로 동작합니다.
 
 ## 동작 방식
@@ -173,6 +176,14 @@ python -m PyInstaller --noconfirm --clean --onefile --windowed ^
 - PDF 저장은 페이지를 이미지로 변환하므로 파일 크기가 커질 수 있습니다.
 - 이 앱은 파일을 읽기 전용으로 표시하며, 문서를 수정하거나 저장하지 않습니다.
 
+## v1.0.2 변경 사항
+
+- 프로그램 이름을 **한씨 (Hansee)** 로 변경
+- 앱 아이콘·파비콘·상단 브랜드 표기를 새 이름에 맞게 갱신
+- 실행 파일 이름 `한씨.exe` / 릴리스 자산 `Hansee-1.0.2.exe`
+- 실행 로그 경로 `%TEMP%\hansee.log`
+- 저장소 이름 `narayo20/hansee`로 변경
+
 ## v1.0.1 변경 사항
 
 - 프로그램 배경을 대한민국의 명산(설악산) 사진으로 변경
@@ -184,7 +195,7 @@ python -m PyInstaller --noconfirm --clean --onefile --windowed ^
 - HWP 5.0 / HWPX 뷰어, 쪽 목록, 확대/축소, 쪽 이동
 - 인쇄 및 PDF 저장
 - 암호 문서 열기
-- Windows 단일 실행 파일(`한글뷰어.exe`) 및 WebView2 데스크톱 창
+- Windows 단일 실행 파일 및 WebView2 데스크톱 창
 - 데스크톱 앱 네이티브 인쇄 대화상자 지원
 
 ## 개인정보

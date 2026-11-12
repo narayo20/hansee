@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""한글 뷰어 데스크톱 실행기.
+"""한씨 (Hansee) 데스크톱 실행기.
 
 빌드된 `dist` 폴더를 127.0.0.1 에서만 제공하고, WebView2 창에 표시한다.
-PyInstaller 로 감싸면 `한글뷰어.exe` 하나로 실행할 수 있다.
+PyInstaller 로 감싸면 `한씨.exe` 하나로 실행할 수 있다.
 """
 
 from __future__ import annotations
@@ -18,10 +18,10 @@ import threading
 from pathlib import Path
 
 
-APP_NAME = "한글 뷰어"
+APP_NAME = "한씨"
 BASE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
 DIST = BASE_DIR / "dist"
-LOG_PATH = Path(tempfile.gettempdir()) / "hangul-viewer.log"
+LOG_PATH = Path(tempfile.gettempdir()) / "hansee.log"
 
 
 def setup_logging() -> None:
@@ -126,7 +126,7 @@ def start_server(port: int) -> http.server.ThreadingHTTPServer:
 def main() -> int:
     setup_logging()
 
-    parser = argparse.ArgumentParser(description="한글 뷰어 데스크톱 실행기")
+    parser = argparse.ArgumentParser(description="한씨 데스크톱 실행기")
     parser.add_argument("--port", type=int, default=0, help="로컬 서버 포트 (기본: 자동)")
     parser.add_argument("--no-ui", action="store_true", help="창 없이 서버만 실행 (테스트용)")
     args = parser.parse_args()

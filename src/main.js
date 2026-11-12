@@ -3,7 +3,7 @@ import wasmUrl from "@rhwp/core/rhwp_bg.wasm?url";
 import { createExporter } from "./export.js";
 
 /* ------------------------------------------------------------------ *
- *  한글 뷰어 — HWP 5.0 / HWPX 로컬 뷰어
+ *  한씨 (Hansee) — HWP 5.0 / HWPX 로컬 뷰어
  *  모든 파싱과 렌더링은 브라우저 안에서만 이루어진다.
  * ------------------------------------------------------------------ */
 
@@ -751,7 +751,7 @@ function updateDocUi(info, pageCount) {
   for (const el of [els.prevPage, els.nextPage, els.printBtn, els.pdfBtn, els.zoomIn, els.zoomOut, els.zoomLabel, els.fitWidth, els.fitPage, els.thumbToggle, els.fullscreenBtn]) {
     el.disabled = false;
   }
-  document.title = `${state.fileName} · 한글 뷰어`;
+  document.title = `${state.fileName} · 한씨`;
   els.statusText.textContent = `${state.fileType} 문서 · 파일이 외부로 전송되지 않았습니다`;
   els.statusEngine.textContent = ENGINE_LABEL;
   if (info?.version) els.docName.title = `${state.fileName}\n한글 ${info.version}`;

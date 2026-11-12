@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""한글 뷰어 로컬 서버.
+"""한씨 (Hansee) 로컬 서버.
 
 빌드된 dist 폴더를 127.0.0.1 에서만 제공하고 기본 브라우저를 연다.
 외부 네트워크로는 아무것도 전송하지 않는다.
@@ -61,7 +61,7 @@ def find_port(host: str, start: int) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="한글 뷰어 로컬 서버")
+    parser = argparse.ArgumentParser(description="한씨 로컬 서버")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT, help="사용할 포트 (기본: 8765)")
     parser.add_argument("--no-browser", action="store_true", help="브라우저를 자동으로 열지 않음")
     args = parser.parse_args()
@@ -82,7 +82,7 @@ def main() -> int:
     server.daemon_threads = True
 
     print("=" * 52)
-    print("  한글 뷰어  ·  HWP / HWPX")
+    print("  한씨 (Hansee)  ·  HWP / HWPX")
     print("=" * 52)
     print(f"  주소: {url}")
     print("  종료: 이 창에서 Ctrl+C 를 누르거나 창을 닫으세요.")
@@ -94,7 +94,7 @@ def main() -> int:
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\n한글 뷰어를 종료합니다.")
+        print("\n한씨를 종료합니다.")
     finally:
         server.server_close()
     return 0
